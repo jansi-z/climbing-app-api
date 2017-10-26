@@ -13,6 +13,8 @@ module.exports = function (app) {
 
     gymId: { type: Schema.Types.ObjectId, ref: 'gyms' },
 
+    climberId: { type: Schema.Types.ObjectId, ref: 'climbers' },
+
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }
   });
