@@ -5,7 +5,10 @@
 module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
+
   const gyms = new Schema({
+
+    userId: { type: Schema.Types.ObjectId, ref: 'users' },
 
     name: { type: String, required: true },
     address: { type: String, required: true },
