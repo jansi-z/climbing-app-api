@@ -1,5 +1,7 @@
 const { authenticate } = require('feathers-authentication').hooks;
 
+const addProfileToUser = require('../../hooks/add-profile-to-user');
+
 module.exports = {
   before: {
     all: [],
@@ -15,7 +17,7 @@ module.exports = {
     all: [],
     find: [],
     get: [],
-    create: [],
+    create: [addProfileToUser()],
     update: [],
     patch: [],
     remove: []
