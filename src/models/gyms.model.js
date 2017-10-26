@@ -16,7 +16,7 @@ module.exports = function (app) {
     country: { type: String, required: true },
     image: { type: String, required: true },
 
-    routes: [],
+    routeIds: [{ type: Schema.Types.ObjectId, ref: 'routes'}],
 
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }

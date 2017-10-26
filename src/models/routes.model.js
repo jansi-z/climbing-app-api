@@ -16,7 +16,7 @@ module.exports = function (app) {
     stringDate: { type: String },
 
     gymId: { type: Schema.Types.ObjectId, ref: 'gyms' },
-    evaluationIds: [],
+    reviewIds: [],
 
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }
