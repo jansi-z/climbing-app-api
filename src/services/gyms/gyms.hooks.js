@@ -8,7 +8,7 @@ module.exports = {
     create: [authenticate('jwt')],
     update: [authenticate('jwt')],
     patch: [authenticate('jwt')],
-    remove: []
+    remove: [authenticate('jwt')]
   },
 
   after: {
