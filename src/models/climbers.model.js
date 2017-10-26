@@ -15,7 +15,7 @@ module.exports = function (app) {
     age: { type: Number },
     avatar: { type: String },
 
-    reviewIds: [],
+    reviewIds: [{ type: Schema.Types.ObjectId, ref: 'reviews' }],
 
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }

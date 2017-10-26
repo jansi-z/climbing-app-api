@@ -12,7 +12,7 @@ module.exports = function (app) {
     comment: { type: String },
 
     routeId: { type: Schema.Types.ObjectId, ref: 'routes' },
-    authorId: { type: Schema.Types.ObjectId, ref: 'users' },
+    authorId: { type: Schema.Types.ObjectId, ref: 'climbers' },
 
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }
