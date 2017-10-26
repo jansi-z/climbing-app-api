@@ -6,5 +6,29 @@
     "default": 10,
     "max": 50
   },
-  "mongodb": "mongodb://localhost:27017/climbing_app_api"
+  "mongodb": "mongodb://localhost:27017/climbing_app_api",
+  "authentication": {
+    "secret": "4851342ce8e59a0c37252f0fed572247d89bdf79e0f3c24d24c59d06d1e7fdf81696e1d5e3c93ae5a5b2964fe053268589ce987a6f90bccf66e21b1f1063cdaf77d8f329e769e6a737d0ca613d026a415d4fb07d784591bb433963852a538d5f6351f343e0383a655230043a077496d3f61680a59a5d6159704a4f2535d914012315e2a3ffc74fc1aae2f2fcb55f0eabdbdfa262687e1a2405f73bb320e124afb6e93927567b35e619bededbdb856e44d0ba5ac84318b23a01d34cdc656bb39d304c95d25fee3c5993d061508ca667b9f75cc05c6403defa0d3260e2126611417a92d10fe19b3a0259bc8f45a0aa53774ca22fe4df68ec3793ca32c5ee065168",
+    "strategies": [
+      "jwt",
+      "local"
+    ],
+    "path": "/authentication",
+    "service": "users",
+    "jwt": {
+      "header": {
+        "type": "access"
+      },
+      "audience": "https://yourdomain.com",
+      "subject": "anonymous",
+      "issuer": "feathers",
+      "algorithm": "HS256",
+      "expiresIn": "1d"
+    },
+    "local": {
+      "entity": "user",
+      "usernameField": "email",
+      "passwordField": "password"
+    }
+  }
 }
