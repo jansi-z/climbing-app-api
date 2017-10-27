@@ -6,11 +6,24 @@ module.exports = function (options = {}) { // eslint-disable-line no-unused-vars
 
     const profileId = hook.result._id;
     const userId = hook.params.user._id;
-    const profileType = (hook.path === 'climbers') ? 'climbers' : 'gyms';
 
-    hook.app.service('users').patch(userId, {
-      $set: `{ ${profileType}: ${profileId} }`
-    });
+    if (hook.path === 'climbers'){
+      hook.app.service('users').patch(userId, {
+        $set: { climberProfileId: profileId }
+      })
+        .then(() => {
+          return hook;
+        });
+    } else if (hook.path === 'gyms'){
+      hook.app.service('users').patch(userId, {
+        $set: { gymProfileId: profileId }
+      })
+        .then(() => {
+          return hook;
+        });
+    } else {
+      return hook;
+    }
 
     return Promise.resolve(hook);
   };

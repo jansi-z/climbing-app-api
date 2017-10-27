@@ -25,7 +25,8 @@
     "test": "npm run eslint && npm run mocha",
     "eslint": "eslint src/. test/. --config .eslintrc.json",
     "start": "node src/",
-    "mocha": "mocha test/ --recursive"
+    "mocha": "mocha test/ --recursive",
+    "dev": "nodemon --inspect src/"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
@@ -50,9 +51,12 @@
   },
   "devDependencies": {
     "eslint": "^4.9.0",
+    "feathers-authentication-client": "^0.3.3",
     "feathers-tests-fake-app-users": "^1.0.0",
     "mocha": "^4.0.1",
+    "nodemon": "^1.12.1",
     "request": "^2.83.0",
-    "request-promise": "^4.2.2"
+    "request-promise": "^4.2.2",
+    "superagent": "^3.8.0"
   }
 }
