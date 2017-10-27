@@ -4,29 +4,49 @@ const superagent = require('superagent');
 const hooks = require('feathers-hooks');
 const auth = require('feathers-authentication-client');
 
-const user = { email: 'test@test.com', password: '1234abcd'};
 const feathersClient = feathers();
-const climber = { username: 'john', city: 'amsterdam', country: 'the netherlands' };
+
+const climberUser1 = { email: 'climber1@test.com', password: '1234abcd'};
+
+const climber1 = { username: 'john', city: 'amsterdam', country: 'the netherlands' };
+
+const gymUser1 = { email: 'gym1@test.com', password: '1234abcd' };
+
+const gym1 = { name: 'Over The Top', address: 'Bergstraat 1', city: 'Amsterdam', country: 'The Netherlands', image: 'http://cdn.hiconsumption.com/wp-content/uploads/2017/02/Central-Rock-Climbing-Gym-.jpg' };
+
 
 feathersClient
   .configure(hooks())
   .configure(rest('http://localhost:3030').superagent(superagent))
   .configure(auth());
 
-feathersClient.service('users').create(user)
-  .then((newUser) => {
-    const testUser = newUser;
-
+feathersClient.service('users').create(climberUser1)
+  .then(() => {
     feathersClient.authenticate({
       strategy: 'local',
-      email: user.email,
-      password: user.password
+      email: climberUser1.email,
+      password: climberUser1.password
     })
       .then(() => {
-        feathersClient.service('climbers').create(climber)
-          .then((testClimber) => {
-            console.log(testUser); //eslint-disable-line
-            console.log(testClimber); //eslint-disable-line
+        feathersClient.service('climbers').create(climber1)
+          .then((result) => {
+            console.log(result); //eslint-disable-line
+          });
+      });
+  });
+
+
+feathersClient.service('users').create(gymUser1)
+  .then(() => {
+    feathersClient.authenticate({
+      strategy: 'local',
+      email: gymUser1.email,
+      password: gymUser1.password
+    })
+      .then(() => {
+        feathersClient.service('climbers').create(gym1)
+          .then((result) => {
+            console.log(result); //eslint-disable-line
           });
       });
   });
