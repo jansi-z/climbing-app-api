@@ -4,6 +4,8 @@ const addProfileToUser = require('../../hooks/add-profile-to-user');
 
 const addUserToProfile = require('../../hooks/add-user-to-profile');
 
+const removeProfileFromUser = require('../../hooks/remove-profile-from-user');
+
 module.exports = {
   before: {
     all: [],
@@ -22,7 +24,7 @@ module.exports = {
     create: [addProfileToUser()],
     update: [],
     patch: [],
-    remove: []
+    remove: [removeProfileFromUser()]
   },
 
   error: {
