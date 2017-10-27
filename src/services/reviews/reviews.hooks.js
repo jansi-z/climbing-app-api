@@ -2,6 +2,8 @@ const { authenticate } = require('feathers-authentication').hooks;
 
 const addAuthorToReview = require('../../hooks/add-author-to-review');
 
+const addReviewToRoute = require('../../hooks/add-review-to-route');
+
 module.exports = {
   before: {
     all: [],
@@ -17,7 +19,7 @@ module.exports = {
     all: [],
     find: [],
     get: [],
-    create: [],
+    create: [addReviewToRoute()],
     update: [],
     patch: [],
     remove: []
