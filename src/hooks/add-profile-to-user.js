@@ -16,7 +16,7 @@ module.exports = function (options = {}) { // eslint-disable-line no-unused-vars
         $set: { gymId: profileId }
       });
     }
-    
+
     return Promise.resolve(hook);
   };
 };
