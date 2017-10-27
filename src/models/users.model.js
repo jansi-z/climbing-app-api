@@ -11,6 +11,8 @@ module.exports = function (app) {
     email: { type: String, unique: true },
     password: { type: String },
 
+    profile: { type: Boolean, default: false },
+
     gymId: { type: Schema.Types.ObjectId, ref: 'gyms' },
 
     climberId: { type: Schema.Types.ObjectId, ref: 'climbers' },

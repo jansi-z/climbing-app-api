@@ -9,11 +9,17 @@ module.exports = function (options = {}) { // eslint-disable-line no-unused-vars
 
     if (hook.path === 'climbers'){
       hook.app.service('users').patch(userId, {
-        $set: { climberId: profileId }
+        $set: {
+          climberId: profileId,
+          profile: true
+        }
       });
     } else if (hook.path === 'gyms'){
       hook.app.service('users').patch(userId, {
-        $set: { gymId: profileId }
+        $set: {
+          gymId: profileId,
+          profile: true
+        }
       });
     }
 
