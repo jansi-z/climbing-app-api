@@ -8,19 +8,15 @@ module.exports = function (options = {}) { // eslint-disable-line no-unused-vars
     const userId = hook.params.user._id;
 
     if (hook.path === 'climbers'){
-      console.log(profileId)
       hook.app.service('users').patch(userId, {
-        $set: { climberProfileId: 'something' }
-      })
-        .then((result) => {
-          console.log(result);
-        });
+        $set: { climberId: profileId }
+      });
     } else if (hook.path === 'gyms'){
       hook.app.service('users').patch(userId, {
-        $set: { gymProfileId: profileId }
+        $set: { gymId: profileId }
       });
     }
-
+    
     return Promise.resolve(hook);
   };
 };
