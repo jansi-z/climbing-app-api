@@ -6,42 +6,60 @@ const superagent = require('superagent');
 const hooks = require('feathers-hooks');
 const auth = require('feathers-authentication-client');
 
-describe('\'climbers\' service', () => {
-  it('registered the service', () => {
-    const service = app.service('climbers');
+const user = { email: 'test@test.com', password: '1234abcd'};
 
-    assert.ok(service, 'Registered the service');
+const feathersClient = feathers();
+
+feathersClient
+  .configure(hooks())
+  .configure(rest('http://localhost:3030').superagent(superagent))
+  .configure(auth());
+
+describe('The climbers test suite', () => {
+
+  after(function() {
+    app.service('users').find({
+      query: { email: 'test@test.com' }
+    })
+      .then((testUser) => {
+        app.service('users').remove(testUser._id);
+      });
+    app.service('climbers').find({
+      query: { username: 'john' }
+    })
+      .then((testClimber) => {
+        app.service('climbers').remove(testClimber._id);
+      });
   });
 
-  it('on creation the new climber\'s is added to the user', () => {
-    const user = { email: 'test@test.com', password: '1234abcd'};
-    const feathersClient = feathers();
-    const climber = { username: 'john', city: 'amsterdam', country: 'the netherlands' };
+  describe('\'climbers\' service', () => {
+    it('registered the service', () => {
+      const service = app.service('climbers');
 
-    feathersClient
-      .configure(hooks())
-      .configure(rest('http://localhost:3030').superagent(superagent))
-      .configure(auth());
+      assert.ok(service, 'Registered the service');
+    });
 
-    feathersClient.service('users').create(user)
-      .then((newUser) => {
-        const testUser = newUser;
+    it('on creation the new climber\'s is added to the user', function() {
 
-        feathersClient.authenticate({
-          strategy: 'local',
-          email: user.email,
-          password: user.password
-        })
-          .then(() => {
-            feathersClient.service('climbers').create(climber)
-              .then((testClimber) => {
-                debugger //eslint-disable-line
-                console.log(testClimber); //eslint-disable-line
-                console.log(testUser); //eslint-disable-line
-                assert.ok((testUser._id === testClimber.userId), 'The new climber profile has the user\'s id');
-                assert.ok((testUser.climberProfileId === testClimber._id), 'The user has the new climber profile\'s id');
-              });
-          });
-      });
+      const climber = { username: 'john', city: 'amsterdam', country: 'the netherlands' };
+
+      feathersClient.service('users').create(user)
+        .then((newUser) => {
+          const testUser = newUser;
+
+          feathersClient.authenticate({
+            strategy: 'local',
+            email: user.email,
+            password: user.password
+          })
+            .then(() => {
+              feathersClient.service('climbers').create(climber)
+                .then((testClimber) => {
+                  assert.ok((testUser._id === testClimber.userId), 'The new climber profile has the user\'s id');
+                  assert.ok((testUser.climberId === testClimber._id), 'The user has the new climber profile\'s id');
+                });
+            });
+        });
+    });
   });
 });
