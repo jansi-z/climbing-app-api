@@ -8,7 +8,7 @@ const feathersClient = feathers();
 
 const climberUser1 = { email: 'climber1@test.com', password: '1234abcd'};
 
-const climber1 = { username: 'john', city: 'amsterdam', country: 'the netherlands' };
+const climber1 = { username: 'Tristan', city: 'Den Haag', country: 'The Netherlands' };
 
 const gymUser1 = { email: 'gym1@test.com', password: '1234abcd' };
 
@@ -30,7 +30,7 @@ feathersClient.service('users').create(climberUser1)
       .then(() => {
         feathersClient.service('climbers').create(climber1)
           .then((result) => {
-            console.log(result); //eslint-disable-line
+            console.log(`Climber seeded: ${result.username}`); //eslint-disable-line
           });
       });
   });
@@ -44,9 +44,9 @@ feathersClient.service('users').create(gymUser1)
       password: gymUser1.password
     })
       .then(() => {
-        feathersClient.service('climbers').create(gym1)
+        feathersClient.service('gyms').create(gym1)
           .then((result) => {
-            console.log(result); //eslint-disable-line
+            console.log(`Gym seeded: ${result.name}`); //eslint-disable-line
           });
       });
   });
