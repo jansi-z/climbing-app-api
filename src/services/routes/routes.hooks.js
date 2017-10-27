@@ -2,6 +2,8 @@ const { authenticate } = require('feathers-authentication').hooks;
 
 const addGymToRoute = require('../../hooks/add-gym-to-route');
 
+const addRouteToGym = require('../../hooks/add-route-to-gym');
+
 module.exports = {
   before: {
     all: [],
@@ -17,7 +19,7 @@ module.exports = {
     all: [],
     find: [],
     get: [],
-    create: [],
+    create: [addRouteToGym()],
     update: [],
     patch: [],
     remove: []
